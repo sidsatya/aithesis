@@ -11,3 +11,6 @@ underscores the importance of understanding its potential impact on labor. This 
 2. Healthcare Data + Regressions.ipynb: Contains main data cleaning + regressions that I used for most tables and figures. 
 3. aipatent_cleaning.ipynb: Contains data cleaning for OECD data regarding the number of AI-related patents over time
 4. ONET Tasks.ipynb: Constructs Tables regarding the nubmer of tasks that are affected by each AI-related impact for each occupation of interest. 
+
+# Data
+Unfortunately, the data that I used is too large to include within a git repository. If you are interested in learning more and viewing the data, please contact me at sidsatya@berkeley.edu and I would be happy to provide it. 

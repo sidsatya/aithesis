@@ -1,4 +1,4 @@
-# Estimating the Impact of Artificial Intelligence on Jobs Within the Healthcare Industry
+# Estimating the Impact of Artificial Intelligence on Jobs Within the Healthcare Industry.
 
 This repository contains the code + Jupyter Notebooks for my Senior Economics Honors Thesis @ UC Berkeley
 
@@ -8,11 +8,11 @@ underscores the importance of understanding its potential impact on labor. This 
 
 # Relevant Files
 1. `THESIS.pdf`: The actual paper itself! 
-2. `Healthcare Data + Regressions.ipynb`: Contains the main data cleaning code as well as code used to output tables and figures used in the paper.  
-3. `aipatent_cleaning.ipynb`: Contains data cleaning for OECD data regarding the number of AI-related patents over time
-4. `ONET Tasks.ipynb`: Constructs Tables regarding the number of tasks that are affected by each AI-related impact for each occupation of interest. 
+2. `healthcare_data_regressions.ipynb`: Contains the main data cleaning code as well as code used to output tables and figures used in the paper.  
+3. `aipatent_cleaning.ipynb`: Contains data cleaning for OECD data regarding the number of AI-related patents over time.
+4. `onet_tasks.ipynb`: Constructs Tables regarding the number of tasks that are affected by each AI-related impact for each occupation of interest. 
 5. `olsregs.Rmd`: R notebook containing OLS regressions that I ran. 
-6. `didregs.Rmd`: R notebook containing the Difference-in-Difference regressions that I ran
+6. `didregs.Rmd`: R notebook containing the Difference-in-Difference regressions that I ran.
 
 # Data
 Unfortunately, the data that I used is too large to include within a git repository. If you are interested in learning more and viewing the data, please contact me at sidsatya@berkeley.edu and I would be happy to provide it. 

@@ -1,0 +1,176 @@
+---
+title: "Difference-in-Differences and OLS Regressions"
+author: Sid Satya
+output: 
+  pdf_document: 
+    keep_tex: true
+header-includes:
+  - \usepackage{dcolumn}
+
+---
+
+This is a notebook that runs the regressions for my honors thesis project.
+
+```{r libraries, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# library(ggplot2)
+# library(dplyr)
+library(stargazer)
+library(plm)
+library(regclass)
+```
+
+## Difference-in-Differences Regressions
+
+Importing Relevant DiD Datasets: 
+```{r did_data}
+# Wage Datasets
+pa_wage <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/physicians_aides_wage_single.csv",header =  TRUE)
+sa_wage <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/secretary_aides_wage_single.csv",header =  TRUE)
+
+# Employment Datasets
+pa_emp <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/physicians_aides_emp_single.csv",header =  TRUE)
+sa_emp <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/secretary_aides_emp_single.csv",header =  TRUE)
+```
+
+
+### Physicians DiD Regressions: 
+```{r did_physicians}
+# Wage DiD for Physicians vs. Aides, reg1 = without controls and with FE, reg2 = with controls and with FE 
+pa_wage_did_reg1 <- lm(LOGWAGE ~ AI + AIPost + factor(YEAR) + factor(IND1990), data = pa_wage)
+pa_wage_did_reg2 <- lm(LOGWAGE ~ AI + AIPost + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(YEAR) + factor(IND1990), data = pa_wage) 
+
+# Employment DiD for Secretaries vs. Aides
+pa_emp_did_reg1 <- lm(LOGEMP ~ AI + AIPost + factor(YEAR) + factor(IND1990), data = pa_emp)
+pa_emp_did_reg2 <- lm(LOGEMP ~ AI + AIPost + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(YEAR) + factor(IND1990), data = pa_emp)
+```
+
+```{r stargazer_did_physicians, echo = TRUE, message=FALSE, warning=FALSE, results='asis'}
+stargazer(pa_wage_did_reg1, 
+          pa_wage_did_reg2, 
+          pa_emp_did_reg1, 
+          pa_emp_did_reg2,
+          header = FALSE, 
+          type = "latex",
+          title = "Difference-in-Differences: Physicians and Surgeons as Treatment Group, Nursing, Psychiatric, and Home Health Aides as Control Group",
+          omit = c("IND1990", "YEAR"),
+          column.labels =c("No Controls", "With Controls", "No Controls", "With Controls"),
+          covariate.labels = c("AI", "AI x Post", "Frac. College", "Frac. White", "Frac. Female", "Age"),
+          dep.var.labels = c("log(wage)", "log(employment)"),
+          omit.stat =c("LL", "ser", "f"), 
+          add.lines = list(c("Industry FE?", "Yes", "Yes", "Yes", "Yes"), 
+                           c("Year FE?", "Yes", "Yes", "Yes", "Yes"))
+          )
+```
+
+### Secretaries & Administrative Assistants DiD Regressions
+
+Secretaries DiD Regressions: 
+
+```{r did_secretaries}
+# Wage DiD for Secretaries vs. Aides, reg1 = without controls and with FE, reg2 = with controls and with FE 
+sa_wage_did_reg1 <- lm(LOGWAGE ~ AI + AIPost + factor(YEAR) + factor(IND1990), data = sa_wage)
+sa_wage_did_reg2 <- lm(LOGWAGE ~ AI + AIPost + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(YEAR) + factor(IND1990), data = sa_wage) 
+
+# Employment DiD for Secretaries vs. Aides
+sa_emp_did_reg1 <- lm(LOGEMP ~ AI + AIPost + factor(YEAR) + factor(IND1990), data = sa_emp)
+sa_emp_did_reg2 <- lm(LOGEMP ~ AI + AIPost + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(YEAR) + factor(IND1990), data = sa_emp)
+```
+
+```{r stargazer_did_secretaries, echo = TRUE, message=FALSE, warning=FALSE, results='asis'}
+stargazer(sa_wage_did_reg1, 
+          sa_wage_did_reg2, 
+          sa_emp_did_reg1, 
+          sa_emp_did_reg2,
+          header = FALSE, 
+          type = "latex",
+          title = "Difference-in-Differences: Secretaries and Administrative Assistants as Treatment Group, Nursing, Psychiatric, and Home Health Aides as Control Group",
+          omit = c("IND1990", "YEAR"),
+          column.labels =c("No Controls", "With Controls", "No Controls", "With Controls"),
+          covariate.labels = c("AI", "AI x Post", "Frac. College", "Frac. White", "Frac. Female", "Age"),
+          dep.var.labels = c("log(wage)", "log(employment)"),
+          omit.stat =c("LL", "ser", "f"), 
+          add.lines = list(c("Industry FE?", "Yes", "Yes", "Yes", "Yes"), 
+                           c("Year FE?", "Yes", "Yes", "Yes", "Yes"))
+          )
+```
+
+
+## OLS Regressions 
+Importing relevant OLS datasets: 
+```{r wage_data}
+p_wage_ols <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/p_wage_ols.csv",header =  TRUE)
+s_wage_ols <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/s_wage_ols.csv",header =  TRUE)
+a_wage_ols <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/a_wage_ols.csv",header =  TRUE)
+
+p_emp_ols <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/p_emp_ols.csv",header =  TRUE)
+s_emp_ols <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/s_emp_ols.csv",header =  TRUE)
+a_emp_ols <-read.csv(file = "/Users/sidsatya/Desktop/berkeley/senior_year/thesis/aithesis/data/a_emp_ols.csv",header =  TRUE)
+```
+
+
+### Wage OLS Regressions: 
+
+```{r wage_ols}
+# reg1: without controls, reg2: with controls 
+pwagereg1 <- lm(LOGWAGE ~ num_patents, data=p_wage_ols)
+pwagereg2 <- lm(LOGWAGE ~ num_patents + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(IND1990), data=p_wage_ols)
+
+swagereg1 <- lm(LOGWAGE ~ num_patents, data=s_wage_ols)
+swagereg2 <- lm(LOGWAGE ~ num_patents + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(IND1990), data=s_wage_ols)
+
+awagereg1 <- lm(LOGWAGE ~ num_patents, data=a_wage_ols)
+awagereg2 <- lm(LOGWAGE ~ num_patents + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(IND1990), data=a_wage_ols)
+```
+
+```{r wage_ols_stargazer, echo = TRUE, message=FALSE, warning=FALSE, results='asis'}
+stargazer(pwagereg2, 
+          swagereg2, 
+          awagereg2,
+          header = FALSE, 
+          type = "latex", 
+          title = "Wage OLS for Each Occupation Against Number of AI-Related Patents by Year",
+          omit = c("IND1990"),
+          dep.var.caption = "Dependent variable: log(wage)",
+          dep.var.labels = "",
+          column.labels = c('\\shortstack{Physicians and \\\\ Surgeons}', 
+                            '\\shortstack{Secretaries and \\\\ Administrative Assistants}', 
+                            '\\shortstack{Nursing, Psychiatric, and \\\\ Home Health Aides}'),
+          covariate.labels = c("Num. Patents", "Frac. College", "Frac. White", "Frac. Female", "Age"),
+          omit.stat = c("LL", "ser", "f"), 
+          add.lines = list(c("Industry Fixed Effects?", "  Yes", "  Yes", "  Yes"))
+          )
+```
+
+### Employment OLS Regressions: 
+
+```{r emp_ols}
+# reg1: without controls, reg2: with controls 
+pempreg1 <- lm(LOGEMP ~ num_patents, data=p_emp_ols)
+pempreg2 <- lm(LOGEMP ~ num_patents + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(IND1990), data=p_emp_ols)
+
+sempreg1 <- lm(LOGEMP ~ num_patents, data=s_emp_ols)
+sempreg2 <- lm(LOGEMP ~ num_patents + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(IND1990), data=s_emp_ols)
+
+aempreg1 <- lm(LOGEMP ~ num_patents, data=a_emp_ols)
+aempreg2 <- lm(LOGEMP ~ num_patents + FRACCOLLEGE + FRACWHITE + FRACFEMALE + AGE + factor(IND1990), data=a_emp_ols)
+```
+
+```{r emp_ols_stargazer, echo = TRUE, message=FALSE, warning=FALSE, results='asis'}
+stargazer(pempreg2, 
+          sempreg2, 
+          aempreg2,
+          header = FALSE, 
+          type = "latex", 
+          title = "Employment OLS for Each Occupation Against Number of AI-Related Patents by Year",
+          omit = c("IND1990"),
+          dep.var.caption = "Dependent variable: log(employment)",
+          dep.var.labels = "",
+          column.labels = c('\\shortstack{Physicians and \\\\ Surgeons}', 
+                            '\\shortstack{Secretaries and \\\\ Administrative Assistants}', 
+                            '\\shortstack{Nursing, Psychiatric, and \\\\ Home Health Aides}'),
+          covariate.labels = c("Num. Patents", "Frac. College", "Frac. White", "Frac. Female", "Age"),
+          omit.stat = c("LL", "ser", "f"), 
+          add.lines = list(c("Industry Fixed Effects?", "  Yes", "  Yes", "  Yes"))
+          )
+```

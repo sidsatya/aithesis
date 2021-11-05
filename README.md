@@ -10,9 +10,9 @@ underscores the importance of understanding its potential impact on labor. This 
 1. `THESIS.pdf`: The actual paper itself! 
 2. `healthcare_data_regressions.ipynb`: Contains the main data cleaning code as well as code used to output tables and figures used in the paper.  
 3. `aipatent_cleaning.ipynb`: Contains data cleaning for OECD data regarding the number of AI-related patents over time.
-4. `onet_tasks.ipynb`: Constructs Tables regarding the number of tasks that are affected by each AI-related impact for each occupation of interest. 
-5. `olsregs.Rmd`: R notebook containing OLS regressions that I ran. 
-6. `didregs.Rmd`: R notebook containing the Difference-in-Difference regressions that I ran.
+4. `onet_tasks.ipynb`: Constructs tables regarding the number of tasks that are affected by each AI-related impact for each occupation of interest. 
+5. `did_ols_regressions.Rmd`: R notebook containing the Difference-in-Differences and OLS regressions that I ran. 
+6. `did_ols_regressions.pdf`: PDF version of the R notebook containing the regressions. 
 
 # Data
-Unfortunately, the data that I used is too large to include within a git repository. If you are interested in learning more and viewing the data, please contact me at sidsatya@berkeley.edu and I would be happy to provide it. 
+Unfortunately, the IPUMS data that I used is too large to include within a git repository. If you are interested in learning more and viewing the data, please contact me at sidsatya@berkeley.edu and I would be happy to provide it. I have included the smaller datasets that I generated in the `data` folder. 

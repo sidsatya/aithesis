@@ -7,7 +7,7 @@ The rapid growth of the artificial intelligence field, as well as its ability to
 underscores the importance of understanding its potential impact on labor. This paper examines how wages and employment levels for jobs in the healthcare industry are affected by artificial intelligence as well as the net effect of two direct impacts of AI through a difference-in-differences approach. The results show that wages and employment for Physicians and Surgeons increased after the introduction of IBM Watson for healthcare applications in 2013 while no significant effect was found for Secretaries and Administrative Assistants in the healthcare industry. Overall, the results suggest that when artificial intelligence augments labor on decision tasks, it has a net positive effect whereas the effect of automating prediction tasks remains ambiguous.
 
 # Relevant Files
-1. `THESIS.pdf`: The actual paper itself! 
+1. `paper.pdf`
 2. `healthcare_data_regressions.ipynb`: Contains the main data cleaning code as well as code used to output tables and figures used in the paper.  
 3. `aipatent_cleaning.ipynb`: Contains data cleaning for OECD data regarding the number of AI-related patents over time.
 4. `onet_tasks.ipynb`: Constructs tables regarding the number of tasks that are affected by each AI-related impact for each occupation of interest. 
